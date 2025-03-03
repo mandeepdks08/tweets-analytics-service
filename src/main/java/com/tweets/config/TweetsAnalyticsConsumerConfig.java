@@ -21,6 +21,7 @@ public class TweetsAnalyticsConsumerConfig {
 		properties.put(ConsumerConfig.GROUP_ID_CONFIG, "tweets-analytics-consumer-group");
 		properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+		properties.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 10);
 		return properties;
 	}
 
@@ -33,6 +34,7 @@ public class TweetsAnalyticsConsumerConfig {
 	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
 		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory());
+		factory.setBatchListener(true);
 		return factory;
 	}
 }
